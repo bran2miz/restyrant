@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Typography, Container, Grid, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import CardModal from '../Modal/index';
@@ -7,23 +7,13 @@ import Locations from '../Locations/index';
 import Header from '../Header/index';
 import Footer from '../Footer/index';
 import RestaurantModal from '../RestaurantModal/index';
+import './main.css';  
 
-const Main = ({ restaurants, locations,handleOpen,handleClose, open, selectedItem, newRestaurant, modalType, handleSubmit, handleChange }) => {
-
-  const backgroundImageStyle = {
-    backgroundImage: 'url(https://img.freepik.com/premium-photo/table-restaurant-with-lights-background_867452-793.jpg)',
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    backgroundAttachment: 'fixed',
-    backgroundPosition: 'center',
-    minHeight: '100vh',
-    padding: '20px'
-  };
-
+const Main = ({ restaurants, locations, handleOpen, handleClose, open, selectedItem, newRestaurant, modalType, handleSubmit, handleChange }) => {
   return (
-    <div style={backgroundImageStyle}>
-      <Container>
-        <Header handleOpen={handleOpen} />
+    <div className="backgroundImageStyle">
+      <Header handleOpen={handleOpen} />
+      <Container className="contentContainerStyle" maxWidth="md">
         <Grid container spacing={4} direction="column">
           <Grid item>
             <Accordion>
@@ -71,4 +61,3 @@ const Main = ({ restaurants, locations,handleOpen,handleClose, open, selectedIte
 };
 
 export default Main;
-

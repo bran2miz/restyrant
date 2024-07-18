@@ -1,33 +1,13 @@
 import React from 'react';
 import { Container, Box, Typography, Avatar, AppBar, Toolbar, Button } from '@mui/material';
-import { Link } from 'react-router-dom';
+import Header from '../Header'; 
+import './aboutme.css'
 
-const backgroundImageStyle = {
-  backgroundImage: 'url(https://img.freepik.com/premium-photo/table-restaurant-with-lights-background_867452-793.jpg)',
-  backgroundSize: 'cover',
-  backgroundRepeat: 'no-repeat',
-  backgroundAttachment: 'fixed',
-  backgroundPosition: 'center',
-  minHeight: '100vh',
-  padding: '20px' 
-};
 
 const AboutMe = () => {
   return (
-    <div style={backgroundImageStyle}>
-      <AppBar position="static" style={{ backgroundColor: '#4E342E', padding: "8px", marginBottom: "10px" }}>
-        <Toolbar>
-          <Typography variant="h6" sx={{ flexGrow: 1, color: 'black' }}>
-            RESTyrant!
-          </Typography>
-          <Button color="inherit" component={Link} to="/" style={{ color: 'black' }}>
-            HOME
-          </Button>
-          <Button color="inherit" component={Link} to="/about" style={{ color: 'black' }}>
-            About Me
-          </Button>
-        </Toolbar>
-      </AppBar>
+    <div className="backgroundImageStyle">
+      < Header />
       <Container maxWidth="md" style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)', padding: '20px', borderRadius: '8px', marginTop: '40px', color: 'black' }}>
         <Box display="flex" flexDirection="column" alignItems="center">
           <Avatar
@@ -52,6 +32,7 @@ const AboutMe = () => {
           </Typography>
         </Box>
       </Container>
+
     </div>
   );
 };

@@ -1,19 +1,22 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, Button } from '@mui/material';
+import { AppBar, Toolbar, Button, Box } from '@mui/material';
 import { Link } from 'react-router-dom';
+import Logo from '/1.png'; 
 
 const Header = ({ handleOpen }) => {
   return (
-    <AppBar position="static" style={{ backgroundColor: '#4E342E', padding: "8px", marginBottom: "10px" }}>
+    <AppBar position="static" style={{ backgroundColor: '#8F6E5D', padding: "8px", marginBottom: "10px" }}>
       <Toolbar>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1, color: 'black' }}>
-          RESTyrant!
-        </Typography>
-        <Button color="inherit" onClick={() => handleOpen('restaurant')} style={{ color: 'black' }}>
-          Add a Restaurant
-        </Button>
+        <Box display="flex" alignItems="center" sx={{ flexGrow: 1 }}>
+          <Link to="/">
+            <img src={Logo} alt="RESTyrant Logo" style={{ height: '100px', marginRight: '10px' }} />
+          </Link>
+        </Box>
         <Button color="inherit" component={Link} to="/about" style={{ color: 'black' }}>
           About Me
+        </Button>
+        <Button color="inherit" onClick={() => handleOpen('restaurant')} style={{ color: 'black' }}>
+          Add a Restaurant
         </Button>
       </Toolbar>
     </AppBar>
@@ -21,4 +24,5 @@ const Header = ({ handleOpen }) => {
 };
 
 export default Header;
+
 

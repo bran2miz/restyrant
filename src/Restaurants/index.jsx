@@ -1,11 +1,11 @@
 import React from 'react';
-import { Grid, Card, CardMedia, CardContent, Typography } from '@mui/material';
+import { Grid, Card, CardContent, Typography, CardMedia } from '@mui/material';
 
 const Restaurants = ({ restaurant, handleOpen }) => {
   return (
     <Grid item xs={12} sm={6} md={4}>
-      <Card onClick={() => handleOpen(restaurant)} sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-        <CardContent sx={{ flex: '1 0 auto' }}>
+      <Card onClick={() => handleOpen(restaurant)} style={{ height: '100%' }}>
+        <CardContent>
           <Typography variant="h5" component="div">
             {restaurant.name}
           </Typography>
@@ -17,7 +17,7 @@ const Restaurants = ({ restaurant, handleOpen }) => {
             height="200"
             image={'https://media.cntraveler.com/photos/5af219d49094c70140318c37/16:9/w_2580%2Cc_limit/Lark_Zack-Bent_2018_Lark_Interior2.jpg'}
             alt="restaurant image"
-            sx={{ mt: 2 }}
+            style={{ marginTop: '20px' }}
           />
         </CardContent>
       </Card>

@@ -1,11 +1,11 @@
 import React from 'react';
-import { Grid, Card, CardMedia, CardContent, Typography } from '@mui/material';
+import { Grid, Card, CardContent, Typography, CardMedia } from '@mui/material';
 
 const Locations = ({ location, handleOpen }) => {
   return (
     <Grid item xs={12} sm={6} md={4}>
-      <Card onClick={() => handleOpen(location)} sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-        <CardContent sx={{ flex: '1 0 auto' }}>
+      <Card onClick={() => handleOpen(location)} style={{ height: '100%' }}>
+        <CardContent>
           <Typography variant="h5" component="div">
             {location.location}
           </Typography>
@@ -16,8 +16,8 @@ const Locations = ({ location, handleOpen }) => {
             component="img"
             height="200"
             image={'https://sph.washington.edu/sites/default/files/inline-images/Seattle-Rainier%201200x600_0.jpg'}
-            alt="restaurant image"
-            sx={{ mt: 2 }}
+            alt="location image"
+            style={{ marginTop: '20px' }}
           />
         </CardContent>
       </Card>
