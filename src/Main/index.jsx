@@ -2,24 +2,13 @@ import React, { useState } from 'react';
 import { Typography, Container, Grid, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import CardModal from '../Modal/index';
-import Restaurants from '../Restaurants';
-import Locations from '../Locations';
-import Header from '../Header';
-import Footer from '../Footer';
-import RestaurantModal from '../RestaurantModal';
+import Restaurants from '../Restaurants/index';
+import Locations from '../Locations/index';
+import Header from '../Header/index';
+import Footer from '../Footer/index';
+import RestaurantModal from '../RestaurantModal/index';
 
 const Main = ({ restaurants, locations,handleOpen,handleClose, open, selectedItem, newRestaurant, modalType, handleSubmit, handleChange }) => {
-
-
-//   const handleOpen = (item) => {
-//     console.log('Opening modal with item:', item);
-//     setSelectedItem(item);
-//     setOpen(true);
-//   };
-
-//   const handleClose = () => {
-//     setOpen(false);
-//   };
 
   const backgroundImageStyle = {
     backgroundImage: 'url(https://img.freepik.com/premium-photo/table-restaurant-with-lights-background_867452-793.jpg)',

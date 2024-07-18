@@ -9,7 +9,7 @@ const backgroundImageStyle = {
   backgroundAttachment: 'fixed',
   backgroundPosition: 'center',
   minHeight: '100vh',
-  padding: '20px' // Optional: Add padding to make sure content doesn't touch edges
+  padding: '20px' 
 };
 
 const AboutMe = () => {

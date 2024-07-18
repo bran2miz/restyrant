@@ -1,9 +1,8 @@
-// App.jsx
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import axios from './axiosConfig'; 
-import Main from './Main';
-import AboutMe from './AboutMe';
+import Main from './Main/index';
+import AboutMe from './AboutMe/index';
 const API_URL = import.meta.env.VITE_APP_URL;
 
 const App = () => {
