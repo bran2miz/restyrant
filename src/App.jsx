@@ -1,28 +1,18 @@
+// App.jsx
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import axios from './axiosConfig'; 
 import Main from './Main';
+import AboutMe from './AboutMe';
 const API_URL = import.meta.env.VITE_APP_URL;
-
-const getCSRFToken = () => {
-  let csrfToken = null;
-  const cookies = document.cookie.split(';');
-  for (let cookie of cookies) {
-    const [name, value] = cookie.trim().split('=');
-    if (name === 'csrftoken') {
-      csrfToken = value;
-    }
-  }
-  console.log(csrfToken)
-  return csrfToken;
-};
-
-axios.defaults.headers.common['X-CSRFToken'] = getCSRFToken();
-
 
 const App = () => {
   const [restaurants, setRestaurants] = useState([]);
   const [newRestaurant, setNewRestaurant] = useState({ name: '', description: '', foodie: 1 });
   const [locations, setLocations] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [modalType, setModalType] = useState('');
 
   useEffect(() => {
     const retrieveData = async () => {
@@ -45,24 +35,25 @@ const App = () => {
 
   const fetchLocations = async () => {
     const response = await axios.get(`${API_URL}/locations/`);
-    console.log(response)
     return response.data;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const csrfToken = getCSRFToken();
+      const csrfToken = axios.defaults.headers.common['X-CSRFToken'];
+      console.log("CSRF Token on Submit:", csrfToken); 
       await axios.post(`${API_URL}/restaurants/`, newRestaurant, {
         headers: {
-          'X-CSRFToken': csrfToken,
+          'Content-Type': 'application/json',
+          'X-CSRFToken': csrfToken 
         },
       });
       const updatedRestaurants = await fetchRestaurants();
       setRestaurants(updatedRestaurants);
       setNewRestaurant({ name: '', description: '', foodie: 1 });
     } catch (error) {
-      console.error("Error adding restaurant:", error);
+      console.error("Error adding restaurant:", error.response ? error.response.data : error.message);
     }
   };
 
@@ -70,23 +61,25 @@ const App = () => {
     setNewRestaurant({ ...newRestaurant, [e.target.name]: e.target.value });
   };
 
+  const handleOpen = (type, item = null) => {
+    console.log('Opening modal with item:', item);
+    setSelectedItem(item);
+    setModalType(type);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <div>
-   
-      <Main restaurants={restaurants} locations={locations} />
-      <h2>Add New Restaurant</h2>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Name:
-          <input type="text" name="name" value={newRestaurant.name} onChange={handleChange} required />
-        </label>
-        <label>
-          Description:
-          <input type="text" name="description" value={newRestaurant.description} onChange={handleChange} required />
-        </label>
-        <button type="submit">Add Restaurant</button>
-      </form>
-
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Main restaurants={restaurants} locations={locations} newRestaurant={newRestaurant} handleSubmit={handleSubmit} handleChange={handleChange} handleOpen={handleOpen} handleClose={handleClose} open={open} selectedItem={selectedItem} modalType={modalType}/>} />
+          <Route path='/about' element={<AboutMe/>} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 };

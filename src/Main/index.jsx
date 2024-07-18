@@ -1,58 +1,85 @@
 import React, { useState } from 'react';
-import { Typography, Container, Grid, Card, CardContent } from '@mui/material';
+import { Typography, Container, Grid, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import CardModal from '../Modal/index';
 import Restaurants from '../Restaurants';
+import Locations from '../Locations';
+import Header from '../Header';
+import Footer from '../Footer';
+import RestaurantModal from '../RestaurantModal';
 
-const Main = ({ restaurants, locations }) => {
-  const [open, setOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState(null);
+const Main = ({ restaurants, locations,handleOpen,handleClose, open, selectedItem, newRestaurant, modalType, handleSubmit, handleChange }) => {
 
-  const handleOpen = (item) => {
-    console.log('Opening modal with item:', item);
-    setSelectedItem(item);
-    setOpen(true);
+
+//   const handleOpen = (item) => {
+//     console.log('Opening modal with item:', item);
+//     setSelectedItem(item);
+//     setOpen(true);
+//   };
+
+//   const handleClose = () => {
+//     setOpen(false);
+//   };
+
+  const backgroundImageStyle = {
+    backgroundImage: 'url(https://img.freepik.com/premium-photo/table-restaurant-with-lights-background_867452-793.jpg)',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    backgroundAttachment: 'fixed',
+    backgroundPosition: 'center',
+    minHeight: '100vh',
+    padding: '20px'
   };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  console.log('Selected item in Main:', selectedItem);
 
   return (
-    <Container>
-      <Typography variant="h4" gutterBottom>
-        Restaurants
-      </Typography>
-      <Grid container spacing={4}>
-        {restaurants.map((restaurant) => (
-          <Restaurants key={restaurant.id} restaurant={restaurant} handleOpen={handleOpen} />
-        ))}
-      </Grid>
-
-      <Typography variant="h4" gutterBottom>
-        Locations
-      </Typography>
-      <Grid container spacing={4}>
-        {locations.map((location) => (
-          <Grid item key={location.id} xs={12} sm={6} md={4}>
-            <Card onClick={() => handleOpen(location)}>
-              <CardContent>
-                <Typography variant="h5" component="div">
-                  {location.location}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {location.description}
-                </Typography>
-              </CardContent>
-            </Card>
+    <div style={backgroundImageStyle}>
+      <Container>
+        <Header handleOpen={handleOpen} />
+        <Grid container spacing={4} direction="column">
+          <Grid item>
+            <Accordion>
+              <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                <Typography variant="h4">Restaurants</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Grid container spacing={4}>
+                  {restaurants.map((restaurant) => (
+                    <Restaurants key={restaurant.id} restaurant={restaurant} handleOpen={handleOpen} />
+                  ))}
+                </Grid>
+              </AccordionDetails>
+            </Accordion>
           </Grid>
-        ))}
-      </Grid>
-
-      <CardModal open={open} handleClose={handleClose} selectedItem={selectedItem} />
-    </Container>
+          <Grid item>
+            <Accordion>
+              <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                <Typography variant="h4">Locations</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Grid container spacing={4}>
+                  {locations.map((location) => (
+                    <Locations key={location.id} location={location} handleOpen={handleOpen} />
+                  ))}
+                </Grid>
+              </AccordionDetails>
+            </Accordion>
+          </Grid>
+        </Grid>
+        {modalType === 'card' && <CardModal open={open} handleClose={handleClose} selectedItem={selectedItem} />}
+        {modalType === 'restaurant' && (
+          <RestaurantModal 
+            open={open} 
+            handleClose={handleClose} 
+            handleSubmit={handleSubmit} 
+            handleChange={handleChange} 
+            newRestaurant={newRestaurant} 
+          />
+        )}
+        <Footer />
+      </Container>
+    </div>
   );
 };
 
 export default Main;
+
